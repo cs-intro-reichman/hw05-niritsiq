@@ -32,7 +32,7 @@ public class GameOfLife {
 		for (int i = 1; i < board.length - 1; i++) {
 			for (int j = 0; j < board[0].length - 1; j++) {
 				int c = count(board, i, j);
-				System.out.println(i = " + i + j = " + ") Value is = " + board[i][j]);
+				System.out.println(i + " + i + j = " + " Value is = " + board[i][j]);
 				board[i][j] = cellValue(board, i, j);
 				System.out.println("New Cell is = " + board[i][j]);
 			}
@@ -79,11 +79,11 @@ public class GameOfLife {
 		int cols = Integer.parseInt(in.readLine());
 		int[][] board = new int[rows + 2][cols + 2];
 		//// Replace the following statement with your code.
-		inr i = 1, j = 0;
+		int i = 1, j = 0;
 		while (!in.isEmpty()) {
 			String l = in.readLine();
 			if (l.length() != 0) {
-				for (j = 1; j <= l; j++) {
+				for (j = 1; j < l; j++) {
 					char c = l.charAt(j - 1);
 					if (c == 'x')
 						board[i][j] = 1;
@@ -138,7 +138,7 @@ public class GameOfLife {
 		//// Replace the following statement with your code.
 		int count = 0;
 		for (int r = i; r <= i + 1; r++) {
-			for (inr c = j; c <= j + 1; c++) {
+			for (int c = j; c <= j + 1; c++) {
 				if (board[i][j] == 1)
 					count--;
 			}
