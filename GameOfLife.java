@@ -12,9 +12,9 @@ public class GameOfLife {
 		//// Uncomment the test that you want to execute, and re-compile.
 		//// (Run one test at a time).
 		//// test1(fileName);
-		test2(fileName);
+		//// test2(fileName);
 		//// test3(fileName, 3);
-		//// play(fileName);
+		play(fileName);
 	}
 
 	// Reads the data file and prints the initial board.
@@ -121,16 +121,16 @@ public class GameOfLife {
 	// Uses the count(board,i,j) function to count the number of alive neighbors.
 	public static int cellValue(int[][] board, int i, int j) {
 		//// Replace the following statement with your code.
-		int c = count(board, i, j), value = 0;
+		int value = 0;
 		if (board[i][j] == 1) {
 
-			if (c == 2 || c == 3) {
+			if (count(board, i, j) == 2 || count(board, i, j) == 3) {
 				value = 1;
 			} else
 				value = 0;
 
 		} else if (board[i][j] == 0) {
-			if (c == 3) {
+			if (count(board, i, j) == 3) {
 				value = 1;
 			}
 
@@ -147,12 +147,9 @@ public class GameOfLife {
 	public static int count(int[][] board, int i, int j) {
 		//// Replace the following statement with your code.
 		int count = 0;
-		for (int r = i; r <= i + 1; r++) {
-			for (int c = j; c <= j + 1; c++) {
-				if (board[i][j] == 1)
-					count--;
-			}
-		}
+		if (i > 0 && i < board.length - 1 && j > 0 && j < board[0].length - 1)
+			count = board[i - 1][j - 1] + board[i - 1][j] + board[i - 1][j + 1] + board[i][j - 1] + board[i][j + 1]
+					+ board[i + 1][j - 1] + board[i + 1][j] + board[i + 1][j + 1];
 		return count;
 	}
 
