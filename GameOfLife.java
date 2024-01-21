@@ -12,9 +12,9 @@ public class GameOfLife {
 		//// Uncomment the test that you want to execute, and re-compile.
 		//// (Run one test at a time).
 		//// test1(fileName);
-		//// test2(fileName);
+		test2(fileName);
 		//// test3(fileName, 3);
-		play(fileName);
+		//// play(fileName);
 	}
 
 	// Reads the data file and prints the initial board.
@@ -26,17 +26,17 @@ public class GameOfLife {
 	// Reads the data file, and runs a test that checks
 	// the count and cellValue functions.
 	public static void test2(String fileName) {
+
 		int[][] board = read(fileName);
-		//// Write here code that tests that the count and cellValue functions
-		//// are working properly, and returning the correct values.
-		for (int i = 1; i < board.length - 1; i++) {
-			for (int j = 0; j < board[0].length - 1; j++) {
-				int c = count(board, i, j);
-				System.out.println(i + " + i + j = " + " Value is = " + board[i][j]);
-				board[i][j] = cellValue(board, i, j);
-				System.out.println("New Cell is = " + board[i][j]);
+		int rows = board.length;
+		int columns = board[0].length;
+		int[][] newBoard = new int[rows][columns];
+		for (int i = 1; i < rows; i++) {
+			for (int j = 1; j < columns; j++) {
+				newBoard[i][j] = cellValue(board, i, j);
 			}
 		}
+		print(newBoard);
 	}
 
 	// Reads the data file, plays the game for Ngen generations,
@@ -79,17 +79,18 @@ public class GameOfLife {
 		int cols = Integer.parseInt(in.readLine());
 		int[][] board = new int[rows + 2][cols + 2];
 		//// Replace the following statement with your code.
-		int i = 1, j = 0;
+		int i = 1, j = 1;
 		while (!in.isEmpty()) {
 			String l = in.readLine();
-			if (l.length() != 0) {
-				for (j = 1; j <= l.length(); j++) {
+			int length = l.length();
+			if (length != 0) {
+				for (j = 1; j <= length; j++) {
 					char c = l.charAt(j - 1);
 					if (c == 'x')
 						board[i][j] = 1;
 				}
 			}
-
+			i++;
 		}
 		return board;
 	}
@@ -120,12 +121,21 @@ public class GameOfLife {
 	// Uses the count(board,i,j) function to count the number of alive neighbors.
 	public static int cellValue(int[][] board, int i, int j) {
 		//// Replace the following statement with your code.
-		int c = count(board, i, j), value = board[i][j];
-		if ((board[i][j] == 1) && (c < 2 || c > 3)) {
-			value = 0;
+		int c = count(board, i, j), value = 0;
+		if (board[i][j] == 1) {
 
-		} else if (c == 3)
-			value = 1;
+			if (c == 2 || c == 3) {
+				value = 1;
+			} else
+				value = 0;
+
+		} else if (board[i][j] == 0) {
+			if (c == 3) {
+				value = 1;
+			}
+
+		}
+
 		return value;
 	}
 
@@ -152,8 +162,9 @@ public class GameOfLife {
 		for (int i = 1; i < arr.length - 1; i++) {
 			for (int j = 1; j < arr[0].length - 1; j++)
 				System.err.printf("%3s", arr[i][j]);
+
+			System.err.println();
 		}
-		System.err.println();
 	}
 
 	// Displays the board. Living and dead cells are represented by black and white
